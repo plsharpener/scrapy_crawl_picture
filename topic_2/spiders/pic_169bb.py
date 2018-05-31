@@ -20,9 +20,6 @@ class Pic169bbSpider(scrapy.Spider):
         for i in range(len(page_url_list)):
             page_url_list[i] = response.url + page_url_list[i]
         page_url_list.append(response.url)
-#        print(page_title_list)
-#        meinv_url_list = response.xpath('//ul[@class="product01"]/li/a/@href').extract()
-#        print(page_url_list)
         for url in page_url_list:
            yield Request(url=url, callback=self.next2)
 
@@ -36,7 +33,7 @@ class Pic169bbSpider(scrapy.Spider):
         pat = re.compile(r'http://www.169(.*).com/guoneimeinv/(.*/.*)/(.*)\.html')
         m = pat.match(response.url)
         last_page_url = 'http://www.169'+ m.group(1)+'.com/guoneimeinv/'+m.group(2)+'/'+ last_page_url
-        print ("          last_page_url           ",last_page_url)
+#        print ("last_page_url",last_page_url)
         yield Request(url=last_page_url,callback=self.next4)
     
     def next4(self, response):
